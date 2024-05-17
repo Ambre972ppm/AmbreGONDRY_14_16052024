@@ -1,64 +1,126 @@
 import React, { useState } from 'react';
-import Input from '../Input/Input.jsx';
-import Select from '../Select/Select.jsx';
+import Input from '../Input/Input';
+import Select from '../Select/Select';
+import DateTimePicker from '../DateTimePicker/DateTimePicker';
 
 const CreateEmployee = () => {
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    dateOfBirth: '',
-    startDate: '',
-    street: '',
-    city: '',
-    state: '',
-    zipCode: '',
-    department: ''
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [department, setDepartment] = useState('');
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipCode, setZipCode] = useState('');
 
-  const handleChange = (e) => {
-    const { id, value } = e.target;
-    setFormData({
-      ...formData,
-      [id]: value
-    });
-  };
+  const departments = [
+    'Sales',
+    'Marketing',
+    'Engineering',
+    'Human Resources',
+    'Legal'
+  ];
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Logic to save employee
-    alert('Employee Created!');
+  const states = [
+    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 
+    'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia'
+  ];
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newEmployee = {
+      firstName,
+      lastName,
+      startDate,
+      department,
+      dateOfBirth,
+      street,
+      city,
+      state,
+      zipCode
+    };
+
+    // Sauvegarder les informations de l'employé dans le stockage local
+    const employees = JSON.parse(localStorage.getItem('employees')) || [];
+    employees.push(newEmployee);
+    localStorage.setItem('employees', JSON.stringify(employees));
+
+    // Réinitialiser les champs du formulaire
+    setFirstName('');
+    setLastName('');
+    setStartDate(new Date());
+    setDepartment('');
+    setDateOfBirth(new Date());
+    setStreet('');
+    setCity('');
+    setState('');
+    setZipCode('');
   };
 
   return (
-    <div className="container">
-      <a href="/employee-list">View Current Employees</a>
-      <h2>Create Employee</h2>
+    <div>
+      <h1>Create Employee</h1>
       <form onSubmit={handleSubmit}>
-        <Input label="First Name" id="firstName" value={formData.firstName} onChange={handleChange} />
-        <Input label="Last Name" id="lastName" value={formData.lastName} onChange={handleChange} />
-        <Input label="Date of Birth" type="date" id="dateOfBirth" value={formData.dateOfBirth} onChange={handleChange} />
-        <Input label="Start Date" type="date" id="startDate" value={formData.startDate} onChange={handleChange} />
-
-        <fieldset className="address">
-          <legend>Address</legend>
-          <Input label="Street" id="street" value={formData.street} onChange={handleChange} />
-          <Input label="City" id="city" value={formData.city} onChange={handleChange} />
-          <Select
-            label="State"
-            id="state"
-            options={['State1', 'State2', 'State3']}
-            value={formData.state}
-            onChange={handleChange}
-          />
-          <Input label="Zip Code" type="number" id="zipCode" value={formData.zipCode} onChange={handleChange} />
-        </fieldset>
-
+        <Input
+          label="First Name"
+          value={firstName}
+          onChange={(e) => setFirstName(e.target.value)}
+          id="firstName"
+        />
+        <Input
+          label="Last Name"
+          value={lastName}
+          onChange={(e) => setLastName(e.target.value)}
+          id="lastName"
+        />
+        <DateTimePicker
+          label="Date of Birth"
+          selected={dateOfBirth}
+          onChange={(date) => setDateOfBirth(date)}
+          id="dateOfBirth"
+          showTimeSelect={false}
+          dateFormat="MMMM d, yyyy"
+        />
+        <DateTimePicker
+          label="Start Date"
+          selected={startDate}
+          onChange={(date) => setStartDate(date)}
+          id="startDate"
+          showTimeSelect={false}
+          dateFormat="MMMM d, yyyy"
+        />
         <Select
           label="Department"
+          value={department}
+          onChange={(e) => setDepartment(e.target.value)}
+          options={departments}
           id="department"
-          options={['Sales', 'Marketing', 'Engineering', 'Human Resources', 'Legal']}
-          value={formData.department}
-          onChange={handleChange}
+        />
+        <Input
+          label="Street"
+          value={street}
+          onChange={(e) => setStreet(e.target.value)}
+          id="street"
+        />
+        <Input
+          label="City"
+          value={city}
+          onChange={(e) => setCity(e.target.value)}
+          id="city"
+        />
+        <Select
+          label="State"
+          value={state}
+          onChange={(e) => setState(e.target.value)}
+          options={states}
+          id="state"
+        />
+        <Input
+          label="Zip Code"
+          value={zipCode}
+          onChange={(e) => setZipCode(e.target.value)}
+          id="zipCode"
         />
         <button type="submit">Save</button>
       </form>
