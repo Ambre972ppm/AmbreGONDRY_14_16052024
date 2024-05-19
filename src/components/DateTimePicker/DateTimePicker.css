@@ -1,19 +1,16 @@
 .datetime-picker {
-    margin: 10px 0;
+    margin-bottom: 1em;
   }
   
   .datetime-picker label {
     display: block;
-    margin-bottom: 5px;
+    margin-bottom: 0.5em;
   }
   
-  .react-datepicker-wrapper {
+  .datetime-picker .form-control {
     width: 100%;
-  }
-  
-  .react-datepicker__input-container input {
-    width: 100%;
-    padding: 8px;
+    padding: 0.5em;
+    box-sizing: border-box;
     border: 1px solid #ccc;
     border-radius: 4px;
   }

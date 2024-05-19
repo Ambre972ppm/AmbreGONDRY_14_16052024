@@ -15,7 +15,13 @@ const DataTable = ({ data, columns }) => {
         {data.map((row, rowIndex) => (
           <tr key={rowIndex}>
             {columns.map((col, colIndex) => (
-              <td key={colIndex}>{row[col.data]}</td>
+                <td key={colIndex}>
+                {col.data === 'startDate' || col.data === 'dateOfBirth' ? (
+                  new Date(row[col.data]).toLocaleDateString() // Convert Date to string
+                ) : (
+                  row[col.data]
+                )}
+              </td>
             ))}
           </tr>
         ))}

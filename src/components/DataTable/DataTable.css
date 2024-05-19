@@ -1,18 +1,24 @@
-.data-table {
+table.display {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
   }
   
-  .data-table th,
-  .data-table td {
+  table.display th,
+  table.display td {
+    padding: 0.5em;
     border: 1px solid #ddd;
-    padding: 8px;
     text-align: left;
   }
   
-  .data-table th {
+  table.display th {
     background-color: #f2f2f2;
-    color: black;
+  }
+  
+  table.display tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  table.display tr:hover {
+    background-color: #f1f1f1;
   }
   

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
-import DataTable from '../DataTable/DataTable';
+import DataTable from '../../components/DataTable/DataTable';
 import './EmployeeList.css';
 
 const EmployeeList = () => {

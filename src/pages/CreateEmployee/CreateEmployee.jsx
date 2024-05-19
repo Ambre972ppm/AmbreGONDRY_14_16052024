@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Input from '../Input/Input';
-import Select from '../Select/Select';
-import DateTimePicker from '../DateTimePicker/DateTimePicker';
+import Input from '../../components/Input/Input';
+import Select from '../../components/Select/Select';
+import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 import { addEmployee } from '../../redux/employeeSlice';
 import './CreateEmployee.css';
 
