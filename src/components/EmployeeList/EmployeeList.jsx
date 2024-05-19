@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import DataTable from '../DataTable/DataTable.jsx';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import DataTable from '../DataTable/DataTable';
+import './EmployeeList.css';
 
 const EmployeeList = () => {
-  const [employees, setEmployees] = useState([]);
+  const employees = useSelector((state) => state.employees.employees);
   const [searchTerm, setSearchTerm] = useState('');
-
-  useEffect(() => {
-    const storedEmployees = JSON.parse(localStorage.getItem('employees')) || [];
-    setEmployees(storedEmployees);
-  }, []);
 
   const columns = [
     { title: 'First Name', data: 'firstName' },
@@ -22,19 +19,20 @@ const EmployeeList = () => {
     { title: 'Zip Code', data: 'zipCode' },
   ];
 
-  const filteredEmployees = employees.filter(employee =>
+  const filteredEmployees = employees.filter((employee) =>
     employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     employee.lastName.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
     <div className="container">
-      <h2>Current Employees</h2>
+      <h2 className="title">Current Employees</h2>
       <input
         type="text"
         placeholder="Search employees"
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        className="search-input"
       />
       <DataTable data={filteredEmployees} columns={columns} />
       <a href="/">Home</a>

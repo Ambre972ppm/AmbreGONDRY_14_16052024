@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import Input from '../Input/Input';
 import Select from '../Select/Select';
 import DateTimePicker from '../DateTimePicker/DateTimePicker';
+import { addEmployee } from '../../redux/employeeSlice';
+import './CreateEmployee.css';
 
 const CreateEmployee = () => {
+  const dispatch = useDispatch();
+
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [startDate, setStartDate] = useState(new Date());
@@ -23,8 +28,17 @@ const CreateEmployee = () => {
   ];
 
   const states = [
-    'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 
-    'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia'
+    'Alabama', 'Alaska', 'American Samoa', 'Arizona', 'Arkansas',
+    'California', 'Colorado', 'Connecticut', 'Delaware', 'District Of Columbia',
+    'Federated States Of Micronesia', 'Florida', 'Georgia', 'Guam', 'Hawaii',
+    'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+    'Maine', 'Marshall Islands', 'Maryland', 'Massachusetts', 'Michigan',
+    'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada',
+    'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina',
+    'North Dakota', 'Northern Mariana Islands', 'Ohio', 'Oklahoma', 'Oregon',
+    'Palau', 'Pennsylvania', 'Puerto Rico', 'Rhode Island', 'South Carolina',
+    'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virgin Islands',
+    'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
   ];
 
   const handleSubmit = (event) => {
@@ -41,10 +55,8 @@ const CreateEmployee = () => {
       zipCode
     };
 
-    // Sauvegarder les informations de l'employé dans le stockage local
-    const employees = JSON.parse(localStorage.getItem('employees')) || [];
-    employees.push(newEmployee);
-    localStorage.setItem('employees', JSON.stringify(employees));
+    // Dispatch l'action pour ajouter un employé
+    dispatch(addEmployee(newEmployee));
 
     // Réinitialiser les champs du formulaire
     setFirstName('');
@@ -59,8 +71,8 @@ const CreateEmployee = () => {
   };
 
   return (
-    <div>
-      <h1>Create Employee</h1>
+    <div className="container">
+      <h2>Create Employee</h2>
       <form onSubmit={handleSubmit}>
         <Input
           label="First Name"

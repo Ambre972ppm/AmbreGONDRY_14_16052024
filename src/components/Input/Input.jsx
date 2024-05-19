@@ -1,4 +1,5 @@
 import React from 'react';
+import './Input.css'
 
 const Input = ({ label, id, value, onChange, type = 'text' }) => {
   return (

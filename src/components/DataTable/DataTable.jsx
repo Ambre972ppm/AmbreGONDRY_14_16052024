@@ -1,5 +1,5 @@
-// src/components/DataTable/DataTable.jsx
 import React from 'react';
+import './DataTable.css'
 
 const DataTable = ({ data, columns }) => {
   return (
