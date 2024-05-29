@@ -21,7 +21,9 @@ const EmployeeList = () => {
 
   const filteredEmployees = employees.filter((employee) =>
     employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.lastName.toLowerCase().includes(searchTerm.toLowerCase())
+    employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    employee.department.toLowerCase().includes(searchTerm.toLowerCase()) || 
+    employee.city.toLowerCase().includes(searchTerm.toLowerCase()) 
   );
 
   return (

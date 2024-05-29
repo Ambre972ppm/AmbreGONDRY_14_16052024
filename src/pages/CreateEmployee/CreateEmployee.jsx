@@ -9,16 +9,6 @@ import './CreateEmployee.css';
 const CreateEmployee = () => {
   const dispatch = useDispatch();
 
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [department, setDepartment] = useState('');
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
-  const [street, setStreet] = useState('');
-  const [city, setCity] = useState('');
-  const [state, setState] = useState('');
-  const [zipCode, setZipCode] = useState('');
-
   const departments = [
     'Sales',
     'Marketing',
@@ -41,6 +31,16 @@ const CreateEmployee = () => {
     'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
   ];
 
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [startDate, setStartDate] = useState(new Date());
+  const [department, setDepartment] = useState(departments[0]); // Valeur par défaut initialisée
+  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [street, setStreet] = useState('');
+  const [city, setCity] = useState('');
+  const [state, setState] = useState('');
+  const [zipCode, setZipCode] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const newEmployee = {
@@ -62,7 +62,7 @@ const CreateEmployee = () => {
     setFirstName('');
     setLastName('');
     setStartDate(new Date());
-    setDepartment('');
+    setDepartment(departments[0]); // Réinitialiser à la valeur par défaut
     setDateOfBirth(new Date());
     setStreet('');
     setCity('');
