@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import Input from '../../components/Input/Input';
 import Select from '../../components/Select/Select';
+import Input from '../../components/Input/Input';
 import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 import { addEmployee } from '../../redux/employeeSlice';
+import Modal from '../../components/Modal/Modal';
 import './CreateEmployee.css';
 
 const CreateEmployee = () => {
@@ -33,13 +34,14 @@ const CreateEmployee = () => {
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [startDate, setStartDate] = useState(new Date());
-  const [department, setDepartment] = useState(departments[0]); // Valeur par défaut initialisée
-  const [dateOfBirth, setDateOfBirth] = useState(new Date());
+  const [startDate, setStartDate] = useState(null);
+  const [department, setDepartment] = useState(departments[0]);
+  const [dateOfBirth, setDateOfBirth] = useState(null);
   const [street, setStreet] = useState('');
   const [city, setCity] = useState('');
-  const [state, setState] = useState('');
+  const [state, setState] = useState(states[0]);
   const [zipCode, setZipCode] = useState('');
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -55,19 +57,22 @@ const CreateEmployee = () => {
       zipCode
     };
 
-    // Dispatch l'action pour ajouter un employé
     dispatch(addEmployee(newEmployee));
+    setModalIsOpen(true);
 
-    // Réinitialiser les champs du formulaire
     setFirstName('');
     setLastName('');
-    setStartDate(new Date());
-    setDepartment(departments[0]); // Réinitialiser à la valeur par défaut
-    setDateOfBirth(new Date());
+    setStartDate(null);
+    setDepartment(departments[0]);
+    setDateOfBirth(null);
     setStreet('');
     setCity('');
-    setState('');
+    setState(states[0]);
     setZipCode('');
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
   };
 
   return (
@@ -102,6 +107,34 @@ const CreateEmployee = () => {
           showTimeSelect={false}
           dateFormat="MMMM d, yyyy"
         />
+        <fieldset className="address">
+          <legend>Address</legend>
+          <Input
+            label="Street"
+            value={street}
+            onChange={(e) => setStreet(e.target.value)}
+            id="street"
+          />
+          <Input
+            label="City"
+            value={city}
+            onChange={(e) => setCity(e.target.value)}
+            id="city"
+          />
+          <Select
+            label="State"
+            value={state}
+            onChange={(e) => setState(e.target.value)}
+            options={states}
+            id="state"
+          />
+          <Input
+            label="Zip Code"
+            value={zipCode}
+            onChange={(e) => setZipCode(e.target.value)}
+            id="zipCode"
+          />
+        </fieldset>
         <Select
           label="Department"
           value={department}
@@ -109,33 +142,11 @@ const CreateEmployee = () => {
           options={departments}
           id="department"
         />
-        <Input
-          label="Street"
-          value={street}
-          onChange={(e) => setStreet(e.target.value)}
-          id="street"
-        />
-        <Input
-          label="City"
-          value={city}
-          onChange={(e) => setCity(e.target.value)}
-          id="city"
-        />
-        <Select
-          label="State"
-          value={state}
-          onChange={(e) => setState(e.target.value)}
-          options={states}
-          id="state"
-        />
-        <Input
-          label="Zip Code"
-          value={zipCode}
-          onChange={(e) => setZipCode(e.target.value)}
-          id="zipCode"
-        />
         <button type="submit">Save</button>
       </form>
+      <Modal isOpen={modalIsOpen} onClose={closeModal}>
+        <h2>Employee Created!</h2>
+      </Modal>
     </div>
   );
 };
