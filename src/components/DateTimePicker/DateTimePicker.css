@@ -1,0 +1,17 @@
+.datetime-picker {
+    margin-bottom: 1em;
+  }
+  
+  .datetime-picker label {
+    display: block;
+    margin-bottom: 0.5em;
+  }
+  
+  .datetime-picker .form-control {
+    width: 100%;
+    padding: 0.5em;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
