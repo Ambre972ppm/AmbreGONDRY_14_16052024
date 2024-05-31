@@ -1,14 +1,12 @@
 import React from 'react';
-import ReactDatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
-import './DateTimePicker.css';
+import DateTimePicker from '@ambre972ppm/react-custom-datepicker';
+import '@ambre972ppm/react-custom-datepicker/dist/DateTimePicker.css';
 
-
-const DateTimePicker = ({ label, selected, onChange, id, showTimeSelect = true, dateFormat = "MMMM d, yyyy h:mm aa" }) => {
+const CustomDateTimePicker = ({ label, selected, onChange, id, showTimeSelect = true, dateFormat = "MMMM d, yyyy h:mm aa" }) => {
   return (
     <div className="datetime-picker">
       <label htmlFor={id}>{label}</label>
-      <ReactDatePicker
+      <DateTimePicker
         selected={selected}
         onChange={onChange}
         showTimeSelect={showTimeSelect}
@@ -20,4 +18,4 @@ const DateTimePicker = ({ label, selected, onChange, id, showTimeSelect = true, 
   );
 };
 
-export default DateTimePicker;
+export default CustomDateTimePicker;

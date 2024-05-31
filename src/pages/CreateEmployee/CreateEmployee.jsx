@@ -1,14 +1,16 @@
+// src/pages/CreateEmployee/CreateEmployee.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Select from '../../components/Select/Select';
 import Input from '../../components/Input/Input';
-import DateTimePicker from '../../components/DateTimePicker/DateTimePicker';
+import CustomDateTimePicker from '../../components/DateTimePicker/DateTimePicker';
 import { addEmployee } from '../../redux/employeeSlice';
-import Modal from '../../components/Modal/Modal';
+import Modal from '../../components/Modal/Modal';  
 import './CreateEmployee.css';
 
 const CreateEmployee = () => {
   const dispatch = useDispatch();
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const departments = [
     'Sales',
@@ -41,7 +43,6 @@ const CreateEmployee = () => {
   const [city, setCity] = useState('');
   const [state, setState] = useState(states[0]);
   const [zipCode, setZipCode] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -57,9 +58,10 @@ const CreateEmployee = () => {
       zipCode
     };
 
+    // Dispatch l'action pour ajouter un employé
     dispatch(addEmployee(newEmployee));
-    setModalIsOpen(true);
 
+    // Réinitialiser les champs du formulaire
     setFirstName('');
     setLastName('');
     setStartDate(null);
@@ -69,10 +71,9 @@ const CreateEmployee = () => {
     setCity('');
     setState(states[0]);
     setZipCode('');
-  };
 
-  const closeModal = () => {
-    setModalIsOpen(false);
+    // Ouvrir la modale
+    setIsModalOpen(true);
   };
 
   return (
@@ -91,7 +92,7 @@ const CreateEmployee = () => {
           onChange={(e) => setLastName(e.target.value)}
           id="lastName"
         />
-        <DateTimePicker
+        <CustomDateTimePicker
           label="Date of Birth"
           selected={dateOfBirth}
           onChange={(date) => setDateOfBirth(date)}
@@ -99,7 +100,7 @@ const CreateEmployee = () => {
           showTimeSelect={false}
           dateFormat="MMMM d, yyyy"
         />
-        <DateTimePicker
+        <CustomDateTimePicker
           label="Start Date"
           selected={startDate}
           onChange={(date) => setStartDate(date)}
@@ -144,8 +145,8 @@ const CreateEmployee = () => {
         />
         <button type="submit">Save</button>
       </form>
-      <Modal isOpen={modalIsOpen} onClose={closeModal}>
-        <h2>Employee Created!</h2>
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        Employee Created!
       </Modal>
     </div>
   );

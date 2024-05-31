@@ -1,42 +1,27 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import DataTable from '../../components/DataTable/DataTable';
 import './EmployeeList.css';
 
 const EmployeeList = () => {
   const employees = useSelector((state) => state.employees.employees);
-  const [searchTerm, setSearchTerm] = useState('');
 
   const columns = [
-    { title: 'First Name', data: 'firstName' },
-    { title: 'Last Name', data: 'lastName' },
-    { title: 'Start Date', data: 'startDate' },
-    { title: 'Department', data: 'department' },
-    { title: 'Date of Birth', data: 'dateOfBirth' },
-    { title: 'Street', data: 'street' },
-    { title: 'City', data: 'city' },
-    { title: 'State', data: 'state' },
-    { title: 'Zip Code', data: 'zipCode' },
+    { Header: 'First Name', accessor: 'firstName' },
+    { Header: 'Last Name', accessor: 'lastName' },
+    { Header: 'Start Date', accessor: 'startDate', Cell: ({ value }) => new Date(value).toLocaleDateString() },
+    { Header: 'Department', accessor: 'department' },
+    { Header: 'Date of Birth', accessor: 'dateOfBirth', Cell: ({ value }) => new Date(value).toLocaleDateString() },
+    { Header: 'Street', accessor: 'street' },
+    { Header: 'City', accessor: 'city' },
+    { Header: 'State', accessor: 'state' },
+    { Header: 'Zip Code', accessor: 'zipCode' },
   ];
-
-  const filteredEmployees = employees.filter((employee) =>
-    employee.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    employee.department.toLowerCase().includes(searchTerm.toLowerCase()) || 
-    employee.city.toLowerCase().includes(searchTerm.toLowerCase()) 
-  );
 
   return (
     <div className="container">
       <h2 className="title">Current Employees</h2>
-      <input
-        type="text"
-        placeholder="Search employees"
-        value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
-        className="search-input"
-      />
-      <DataTable data={filteredEmployees} columns={columns} />
+      <DataTable columns={columns} data={employees} />
       <a href="/">Home</a>
     </div>
   );
