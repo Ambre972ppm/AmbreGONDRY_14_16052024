@@ -1,9 +1,8 @@
-// src/pages/CreateEmployee/CreateEmployee.jsx
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Select from '../../components/Select/Select';
 import Input from '../../components/Input/Input';
-import CustomDateTimePicker from '../../components/DateTimePicker/DateTimePicker';
+import DateTimePicker from '@ambre972ppm/react-custom-datepicker';
 import { addEmployee } from '../../redux/employeeSlice';
 import Modal from '../../components/Modal/Modal';  
 import './CreateEmployee.css';
@@ -92,7 +91,7 @@ const CreateEmployee = () => {
           onChange={(e) => setLastName(e.target.value)}
           id="lastName"
         />
-        <CustomDateTimePicker
+        <DateTimePicker
           label="Date of Birth"
           selected={dateOfBirth}
           onChange={(date) => setDateOfBirth(date)}
@@ -100,7 +99,7 @@ const CreateEmployee = () => {
           showTimeSelect={false}
           dateFormat="MMMM d, yyyy"
         />
-        <CustomDateTimePicker
+        <DateTimePicker
           label="Start Date"
           selected={startDate}
           onChange={(date) => setStartDate(date)}
